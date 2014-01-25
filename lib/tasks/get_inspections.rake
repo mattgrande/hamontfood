@@ -1,5 +1,6 @@
 require 'benchmark'
 require "selenium-webdriver"
+require File.expand_path('../../assets/inspection_importer.rb', __FILE__)
 
 task :get_inspections => :environment do
 
