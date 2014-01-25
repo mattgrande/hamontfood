@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "HamOntFood" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <header>
+      <a href="/" class="secondary">
+        <%= image_tag "ham.svg" %>
+        HamOntFood
+      </a>
+    </header>
+
+    <!--<nav class="breadcrumbs">
+      <a href="/">Recent Inspections</a>
+      <a href="/?type=Failed">Recent Yellow &amp; Red Inspections</a>
+      <a href="/premises">Browse</a>
+    </nav>-->
+
+    <nav class="top-bar" data-topbar>
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#"></a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#">&#9776;</a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="/">Recent Inspections</a></li>
+          <li><a href="/?type=Failed">Recent Yellow &amp; Red Inspections</a></li>
+          <li><a href="/premises">Browse &amp; Search</a></li>
+        </ul>
+      </section>
+    </nav>
+
+    <div class="row">
+      <%= yield %>
+    </div>
+
+    <footer>
+      This is a footer. If this site was copywritten, you would see the copyright here. <span class="hide">This website was created by <a href="http://mattgrande.com">Matt Grande</a>.</span>
+    </footer>
+
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>

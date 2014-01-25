@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @premise.name -%></h1>
+<h3><%= @premise.address -%></h3>
+<h4><%= @premise.premise_type -%></h4>
+
+<% if params[:inspection_id].nil? %>
+	<h2>Most Recent Inspection<br/><%= render 'passfail', :inspection => @inspection -%></h2>
+<% else %>
+	<h2>Inspection From <%= @inspection.date -%><br/><%= render 'passfail', :inspection => @inspection -%></h2>
+<% end %>
+
+<blockquote>
+	<h5><%= @inspection.note -%></h5>
+
+	<%= render 'infractions', :infraction_type => 'CRITICAL', :infraction_name => 'Critical Infractions' %>
+	<%= render 'infractions', :infraction_type => 'MINOR', :infraction_name => 'Minor Infractions' %>
+	<%= render 'infractions', :infraction_type => 'ACTION', :infraction_name => 'Actions Taken' %>
+
+</blockquote>
+
+<div class="clear"></div>
+
+<h2>Previous Inspections</h2>
+
+<ul>
+	<% @inspections.each do |i| %>
+	  <li>
+	  	<% if i.id == @inspection.id %>
+	  		<%= i.date -%>
+	  	<% else %>
+	  		<%= link_to i.date, "/premises/#{@premise.id}/inspections/#{i.id}" -%>
+	  	<% end %>
+	  	<%= render 'passfail', :inspection => i -%>
+	  </li>
+	<% end %>
+</ul>
+
+<% if @premise.inspections.length > 1 %>
+
+	<% 
+		# How many days since the first inspection?
+		start_date = @premise.inspections[-1].date
+		date_diff = Date.today - start_date
+	%>
+
+	<div class="datebar hide-for-medium-down">
+		<div>
+
+			<%
+				# The below code cannot have whitespaces, or else it messes up 
+				# the display. Here is what it would look like, exanded. 
+				# <! @premise.inspections.reverse_each { |i| 
+				#     diff = (((i.date - start_date).to_f / date_diff) * 100)
+				#     diff -= prev_diff
+				#     prev_diff += diff !>
+				#     <div style="width: <!= diff -!>%" class="bar <!= prev_class !>"></div>
+				#     <! prev_class = i.result_class 
+			    # } !>
+			    # <div style="width: <!= 100-prev_diff -!>%" class="bar <!= prev_class !>"></div>
+			%>
+
+			<% prev_class = ''; prev_diff = 0 %>
+			<% @premise.inspections.reverse_each { |i| diff = (((i.date - start_date).to_f / date_diff) * 100); diff -= prev_diff; prev_diff += diff %><div style="width: <%= diff -%>%" class="bar <%= prev_class %>"></div><% prev_class = i.result_class; } %><div style="width: <%= 100-prev_diff -%>%" class="bar <%= prev_class %>"></div>
+
+		</div>
+	</div>
+	<div class="tipbar hide-for-medium-down">
+		<div style="position: relative;">
+			<% is_top = false %>
+			<% @premise.inspections.reverse_each do |i| %>
+			<%  # *1000, because it's 1000 px wide; -10 to account for padding.
+				diff = (((i.date - start_date).to_f / date_diff) * 1000).to_i - 10;
+				is_top = !is_top %>
+			<span class="tooltip <%= (is_top ? 'tip-top' : 'tip-bottom') -%>" style="left: <%= diff -%>px"><%= render 'premises/passfailsmall', :premise => @premise, :inspection => i -%><span class="nub"></span></span>
+			<% end %>
+		</div>
+	</div>
+				
+<% end %>

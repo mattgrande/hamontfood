@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: MyString
+  premise_id: MyString
+  date: 2014-01-02
+  inspection_reason: MyString
+  note: MyString
+  passed: false
+
+two:
+  id: MyString
+  premise_id: MyString
+  date: 2014-01-02
+  inspection_reason: MyString
+  note: MyString
+  passed: false

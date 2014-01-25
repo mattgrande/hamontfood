@@ -1,0 +1,67 @@
+<% if params[:type] %>
+  <h1>Listing all <%= params[:type] -%></h1>
+<% else %>
+  <h1>Listing all premises</h1>
+<% end %>
+
+<%= form_tag premises_path, :method => 'get' do %>
+  <div class="row">
+    <div class="large-8 columns">
+      <label>Restaurant Name</label>
+      <input type="text" id="restaurant_name" name="restaurant_name" value="<%= params[:restaurant_name] -%>" />
+      <label>Premise Type</label>
+      <%= select_tag :type, options_for_select(@types), :include_blank => true %>
+    </div>
+    <div class="large-4 columns">
+      <button type="submit" class="success">Search</button>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <%= will_paginate @premises %>
+  </div>
+</div>
+
+<!--<div class="row">
+  <div class="large-12 columns">
+    <p><%= @premises.count %> premises found.</p>
+  </div>
+</div>-->
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="hide-for-small">Premise type</th>
+      <th>Address</th>
+      <th>Last Three Inspections</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @premises.each do |premise| %>
+      <tr>
+        <td><%= link_to premise.name, premise %></td>
+        <td class="hide-for-small"><%= premise.premise_type %></td>
+        <td><%= premise.address %></td>
+        <td>
+          <div class="row">
+            <% inspections = premise.inspections.order(:date => :desc) %>
+            <% i = inspections[2] %>
+            <div class="large-4 columns"><%= render 'passfailsmall', :inspection => i, :premise => premise -%></div>
+            <% i = inspections[1] %>
+            <div class="large-4 columns"><%= render 'passfailsmall', :inspection => i, :premise => premise -%></div>
+            <% i = inspections[0] %>
+            <div class="large-4 columns"><%= render 'passfailsmall', :inspection => i, :premise => premise -%></div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @posts %>
+
+<br>

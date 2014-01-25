@@ -1,0 +1,25 @@
+<h1>Most Recent Inspections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Premise</th>
+      <th>Date</th>
+      <th class="hide-for-small">Inspection reason</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inspections.each do |inspection| %>
+      <tr>
+        <td><%= link_to inspection.premise.name, premise_inspection_path(:id => inspection.premise_id, :inspection_id => inspection.id) %></td>
+        <td><%= inspection.date %></td>
+        <td class="hide-for-small"><%= inspection.inspection_reason %></td>
+        <td><%= render 'premises/passfail', :inspection => inspection -%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,26 @@
+<!-- What kind of idiot rolls their own paginator in 2014?
+  Matt Grande is that kind of idiot. -->
+
+<% if @page_count > 1 %>
+  <ul class="pagination">
+    <% if params[:page] == 0 %>
+      <li class="arrow unavailable"><a href="">&laquo;</a></li>
+    <% else %>
+      <li class="arrow">
+        <a href="/premises?page=<%= params[:page]-1 -%>&type=<%= params[:type] -%>">&laquo;</a>
+      </li>
+    <% end %>
+    <% 0.upto(@page_count) do |i| %>
+      <li <% if params[:page] == i %>class="current"<% end %>>
+        <a href="/premises?page=<%= i -%>&type=<%= params[:type] -%>"><%= i+1 -%></a>
+      </li>
+    <% end %>
+    <% if params[:page] == @page_count %>
+      <li class="arrow unavailable"><a href="">&raquo;</a></li>
+    <% else %>
+      <li class="arrow">
+        <a href="/premises?page=<%= params[:page]+1 -%>&type=<%= params[:type] -%>">&raquo;</a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

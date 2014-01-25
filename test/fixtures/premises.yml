@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: MyString
+  name: MyString
+  premise_type: MyString
+  address: MyString
+
+two:
+  id: MyString
+  name: MyString
+  premise_type: MyString
+  address: MyString

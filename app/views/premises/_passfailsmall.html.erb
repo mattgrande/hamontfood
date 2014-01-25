@@ -1,0 +1,9 @@
+<% if inspection.nil? %>
+	-
+<% elsif inspection.result == 'Passed' %>
+  <%= link_to "/premises/#{premise.id}/inspections/#{inspection.id}" do -%><span class="passed">P</span><% end %>
+<% elsif inspection.result == 'Fail' %>
+  <%= link_to "/premises/#{premise.id}/inspections/#{inspection.id}" do -%><span class="failed">F</span><% end %>
+<% else %>
+  <%= link_to "/premises/#{premise.id}/inspections/#{inspection.id}" do -%><span class="conditional">C</span><% end %>
+<% end %>

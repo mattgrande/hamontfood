@@ -1,0 +1,11 @@
+<% if inspection.result == 'Passed' %>
+	<span class="passed">Passed
+<% elsif inspection.result == 'Fail' %>
+	<span class="failed">Failed
+<% else %>
+	<span class="conditional">Conditional Pass
+<% end %>
+<% unless inspection.details.nil? or inspection.details.empty? %>
+	(<%= inspection.details -%>)
+<% end %>
+</span>

@@ -1,0 +1,8 @@
+<% if @inspection.infractions.any? { |i| i.infraction_type == infraction_type } %>
+	<h5><%= infraction_name -%></h5>
+	<ul>
+		<% @inspection.infractions.select { |i| i.infraction_type == infraction_type }.each do |i| %>
+			<li><%= i.text -%></li>
+		<% end %>
+	</ul>
+<% end %>
