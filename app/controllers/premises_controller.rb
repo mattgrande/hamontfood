@@ -1,5 +1,5 @@
 class PremisesController < ApplicationController
-  before_action :set_premise, only: [:show, :edit, :update, :destroy]
+  before_action :set_premise, only: [:show]
 
   # GET /premises
   # GET /premises.json

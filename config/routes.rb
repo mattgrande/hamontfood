@@ -10,6 +10,8 @@ Hamontfood::Application.routes.draw do
 
   # resources :criticals
 
+  get 'about' => 'pages#about'
+
   get 'premises/:id/inspections'                => 'premises#show'
   get 'premises/:id/inspections/:inspection_id' => 'premises#show', as: :premise_inspection
 

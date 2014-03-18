@@ -1,0 +1,38 @@
+<h1>About &amp; FAQ</h1>
+
+<hr />
+
+<!--<h3>About</h3>-->
+
+<p>This website was created as a more user-friendly alternative to <a href="http://foodsafetyzone.ca/">FoodSafetyZone.ca</a>, the City of Hamilton's food premises inspection disclosure site. I belive this site offers two main advantages over FoodSafetyZone.ca:</p>
+
+<ol>
+	<li><strong>Linkability</strong>. All of the URLs on FoodSafetyZone.ca are exactly the same making it impossible to link to a specific inspection or location. This is not an issue on HamOntFood.</li>
+	<li><strong>Openness</strong>. HamOntFood has a JSON API to allow other people to create apps similar to this, or filter the results to their liking.
+</ol>
+
+<p>This website is not endorsed by, or affiliated with, the City of Hamilton or FoodSafetyZone.ca. Every effort is made to ensure that the information on this site is up to date. However, I cannot guarantee that all information is accurate, complete or current at all times, and am limited by the information provided by FoodSafetyZone.ca.</p>
+
+<p>No endorsement of any food premises, or the products or services offered by a food premises, is expressed or implied by any information, material or content included on this website.</p>
+
+<!--<h3>FAQ</h3>-->
+<hr />
+
+<h4>Is this website created by, endorsed by, or affiliated with the City of Hamilton?</h4>
+
+<p><strong>No.</strong></p>
+
+<h4>Where did the information on this site come from? How was it sourced?</h4>
+
+<p>All of the inspection information on this website was pulled from FoodSafetyZone.ca. I wrote a screen scraper to go through every page on their site and write the information to a database.</p>
+
+<h4>Do you have an API? How can I access it?</h4>
+
+<p>The answer to this question is <em>kinda</em>. There is a JSON API in existence, but it is pretty basic. Here's what's available:</p>
+
+<ul>
+	<li><pre>http://hamontfood.com/premises.json</pre> &mdash; A list of all the premises.</li>
+	<li><pre>http://hamontfood.com/premises/[premise id].json</pre> &mdash; All of the information to do with a specific restaurant or store. This will soon include a list of inspections</li>
+</ul>
+
+<p>That's it for now. If you're looking for something specific, or more detailed than this, please let me know.</p>
