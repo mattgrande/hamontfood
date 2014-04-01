@@ -80,6 +80,9 @@ private
     all_options = select.find_elements(:tag_name, "option")
     all_options.each do |option|
 
+      # There's a 'Complete this survey' popup. Click 'No Thanks.'
+      click_no_thanks
+
       # Select the current premise type from the dropdown list...
       next unless option.attribute("value") == type
       option.click
@@ -130,6 +133,17 @@ private
     end
 
     return done_loading
+  end
+
+  def click_no_thanks
+    begin
+      no_thanks = @driver.find_elements(:class_name, "fs-cancel")
+      if no_thanks.length > 0
+        no_thanks[0].click
+      end
+    rescue Exception => e
+      # Don't do anything.  
+    end
   end
 
   def import_list( premise_type )
