@@ -20,6 +20,6 @@ test:
 
 production:
   adapter: sqlite3
-  database: ../../../production.sqlite3
+  database: /home/azureuser/apps/hamontfood/production.sqlite3
   pool: 5
   timeout: 5000
