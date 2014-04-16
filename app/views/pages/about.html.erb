@@ -24,15 +24,21 @@
 
 <h4>Where did the information on this site come from? How was it sourced?</h4>
 
-<p>All of the inspection information on this website was pulled from FoodSafetyZone.ca. I wrote a screen scraper to go through every page on their site and write the information to a database.</p>
+<p>All of the inspection information on this website was pulled from <a href="http://foodsafetyzone.ca/">FoodSafetyZone.ca</a>. I wrote a screen scraper to go through every page on their site and write the information to a database.</p>
+
+<h4>Hmm, I think something's wrong on here…</h4>
+
+<p>I've been known to make a mistake once or twice in the past. Contact me on Twitter, <a href="https://twitter.com/hamontfood">@HamOntFood</a>, or if you have the technical know-how, issue a pull request on <a href="https://github.com/mattgrande/hamontfood">github</a>.</p>
 
 <h4>Do you have an API? How can I access it?</h4>
 
-<p>The answer to this question is <em>kinda</em>. There is a JSON API in existence, but it is pretty basic. Here's what's available:</p>
+<p>Absolutely! There is a JSON that allows you to access all of the data on the site. Here's what's available:</p>
 
 <ul>
 	<li><pre>http://hamontfood.com/premises.json</pre> &mdash; A list of all the premises.</li>
-	<li><pre>http://hamontfood.com/premises/[premise id].json</pre> &mdash; All of the information to do with a specific restaurant or store. This will soon include a list of inspections</li>
+	<li><pre>http://hamontfood.com/premises/[premise id].json</pre> &mdash; All of the information to do with a specific restaurant or store, including a list of its inspections.</li>
+	<li><pre>http://hamontfood.com/inspections/[inspection id].json</pre> &mdash; All of the information to do with a specific inspection.</li>
+	<li><pre>http://hamontfood.com/inspections.json</pre> &mdash; The 100 most recent inspections.</li>
 </ul>
 
 <p>That's it for now. If you're looking for something specific, or more detailed than this, please let me know.</p>
