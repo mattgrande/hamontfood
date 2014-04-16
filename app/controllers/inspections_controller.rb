@@ -13,4 +13,8 @@ class InspectionsController < ApplicationController
       @inspections = @inspections.where("result <> 'Passed'")
     end
   end
+
+  def show
+    @inspection = Inspection.includes( :infractions ).find( params[:id] )
+  end
 end

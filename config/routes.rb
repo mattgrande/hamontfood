@@ -2,25 +2,14 @@ Hamontfood::Application.routes.draw do
 
   root 'inspections#index'
 
-  # resources :action_takens
-
-  # resources :actions
-
-  # resources :minors
-
-  # resources :criticals
-
   get 'about' => 'pages#about'
 
   get 'premises/:id/inspections'                => 'premises#show'
   get 'premises/:id/inspections/:inspection_id' => 'premises#show', as: :premise_inspection
 
-  # resources :inspections
-
-  resources :premises# do
-    #resources :inspections
-  #end
-
+  resources :premises
+  resources :inspections
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
