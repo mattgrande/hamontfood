@@ -1,3 +1,4 @@
+<% newline = true if local_assigns[:newline].nil? %>
 <% if inspection.result == 'Passed' %>
 	<span class="passed">Passed
 <% elsif inspection.result == 'Fail' %>
@@ -6,6 +7,7 @@
 	<span class="conditional">Conditional Pass
 <% end %>
 <% unless inspection.details.nil? or inspection.details.empty? %>
-	<br/>(<%= inspection.details -%>)
+	<% if newline %><br/><% end %>
+	(<%= inspection.details -%>)
 <% end %>
 </span>

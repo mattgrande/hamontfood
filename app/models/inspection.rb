@@ -19,20 +19,6 @@ class Inspection < ActiveRecord::Base
 		infractions.where(infraction_type: 'MINOR').count
 	end
 
-	# Yeah, yeah, this is technically a view concern in the model.
-	# I didn't want this if statement in all my views, though, so it's here.
-	def result_class
-		rc = ''
-		if self.result == 'Passed'
-			rc = 'passed'
-		elsif self.result == 'Fail'
-			rc = 'failed'
-		elsif self.result == 'Conditional Pass'
-			rc = 'conditional'
-		end
-		return rc
-	end
-
 	def set_details
 		crit_count = 0
 		minor_count = 0

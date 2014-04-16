@@ -34,7 +34,7 @@
 	  	<% else %>
 	  		<%= link_to i.date, "/premises/#{@premise.id}/inspections/#{i.id}" -%>
 	  	<% end %>
-	  	<%= render 'passfail', :inspection => i -%>
+	  	<%= render 'passfail', :inspection => i, :newline => false -%>
 	  </li>
 	<% end %>
 </ul>
@@ -58,13 +58,13 @@
 				#     diff -= prev_diff
 				#     prev_diff += diff !>
 				#     <div style="width: <!= diff -!>%" class="bar <!= prev_class !>"></div>
-				#     <! prev_class = i.result_class 
+				#     <! prev_class = result_class( i )
 			    # } !>
 			    # <div style="width: <!= 100-prev_diff -!>%" class="bar <!= prev_class !>"></div>
 			%>
 
 			<% prev_class = ''; prev_diff = 0 %>
-			<% @premise.inspections.reverse_each { |i| diff = (((i.date - start_date).to_f / date_diff) * 100); diff -= prev_diff; prev_diff += diff %><div style="width: <%= diff -%>%" class="bar <%= prev_class %>"></div><% prev_class = i.result_class; } %><div style="width: <%= 100-prev_diff -%>%" class="bar <%= prev_class %>"></div>
+			<% @premise.inspections.reverse_each { |i| diff = (((i.date - start_date).to_f / date_diff) * 100); diff -= prev_diff; prev_diff += diff %><div style="width: <%= diff -%>%" class="bar <%= prev_class %>"></div><% prev_class = result_class(i); } %><div style="width: <%= 100-prev_diff -%>%" class="bar <%= prev_class %>"></div>
 
 		</div>
 	</div>
