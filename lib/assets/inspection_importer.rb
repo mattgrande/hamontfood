@@ -295,34 +295,35 @@ private
       when "Inspection type:"
         inspection.inspection_reason = @driver.find_elements(:tag_name, "ul")[i].find_element(:tag_name, "li").attribute("innerText")
       when "Critical Infractions"
-        lis = @driver.find_elements(:tag_name, "ul")[i].find_elements(:tag_name, "li")
-        lis.each do |li|
-          infraction = Infraction.new
-          infraction.infraction_type = 'CRITICAL'
-          infraction.text = li.attribute('innerText')
-          inspection.infractions << infraction
-        end
+        add_infractions inspection, 'CRITICAL'
       when "Minor Infractions"
-        lis = @driver.find_elements(:tag_name, "ul")[i].find_elements(:tag_name, "li")
-        lis.each do |li|
-          infraction = Infraction.new
-          infraction.infraction_type = 'MINOR'
-          infraction.text = li.attribute('innerText')
-          inspection.infractions << infraction
-        end
+        add_infractions inspection, 'MINOR'
       when "Actions taken:"
-        lis = @driver.find_elements(:tag_name, "ul")[i].find_elements(:tag_name, "li")
-        lis.each do |li|
-          infraction = Infraction.new
-          infraction.infraction_type = 'ACTION'
-          infraction.text = li.attribute('innerText')
-          inspection.infractions << infraction
-        end
+        add_infractions inspection, 'ACTION'
       else
         inspection.note = h4
       end
     end
 
+    set_result_from_image inspection    
+
+    inspection.set_details
+
+    return inspection
+
+  end
+
+  def add_infractions(inspection, infraction_type)
+    lis = @driver.find_elements(:tag_name, "ul")[i].find_elements(:tag_name, "li")
+    lis.each do |li|
+      infraction = Infraction.new
+      infraction.infraction_type = infraction_type
+      infraction.text = li.attribute('innerText')
+      inspection.infractions << infraction
+    end
+  end
+
+  def set_result_from_image( inspection )
     imgs = @driver.find_elements(:tag_name, "img")
     imgs.each do |img|
       img_src = img.attribute("src")
@@ -344,11 +345,6 @@ private
         break
       end
     end
-
-    inspection.set_details
-
-    return inspection
-
   end
 
 end
