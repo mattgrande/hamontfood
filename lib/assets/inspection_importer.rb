@@ -295,11 +295,11 @@ private
       when "Inspection type:"
         inspection.inspection_reason = @driver.find_elements(:tag_name, "ul")[i].find_element(:tag_name, "li").attribute("innerText")
       when "Critical Infractions"
-        add_infractions inspection, 'CRITICAL'
+        add_infractions i, inspection, 'CRITICAL'
       when "Minor Infractions"
-        add_infractions inspection, 'MINOR'
+        add_infractions i, inspection, 'MINOR'
       when "Actions taken:"
-        add_infractions inspection, 'ACTION'
+        add_infractions i, inspection, 'ACTION'
       else
         inspection.note = h4
       end
@@ -313,7 +313,7 @@ private
 
   end
 
-  def add_infractions(inspection, infraction_type)
+  def add_infractions(i, inspection, infraction_type)
     lis = @driver.find_elements(:tag_name, "ul")[i].find_elements(:tag_name, "li")
     lis.each do |li|
       infraction = Infraction.new
