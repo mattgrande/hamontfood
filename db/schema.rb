@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111144438) do
+ActiveRecord::Schema.define(version: 20140926193300) do
 
   create_table "infractions", force: true do |t|
     t.string   "inspection_id"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20140111144438) do
     t.string   "details_short"
   end
 
+  create_table "locations", force: true do |t|
+    t.decimal "lat"
+    t.decimal "lng"
+  end
+
   create_table "premises", id: false, force: true do |t|
     t.string   "id"
     t.string   "name"
@@ -41,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140111144438) do
     t.string   "address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
 
 end

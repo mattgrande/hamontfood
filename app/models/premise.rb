@@ -1,4 +1,5 @@
 class Premise < ActiveRecord::Base
+	belongs_to :location
 	has_many :inspections, -> { order(date: :desc) }
 
 	self.primary_key = :id
