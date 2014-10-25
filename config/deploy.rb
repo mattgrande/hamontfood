@@ -1,51 +1,40 @@
-require "bundler/capistrano"
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
+set :application, 'HamOntFood'
+set :repo_url, 'git@github.com:mattgrande/hamontfood.git'
 
-set :application, "hamontfood"
-set :user, "azureuser"
+# describe the rbenv environment we are deploying into
+set :rbenv_type, :user
+set :rbenv_ruby, '2.0.0-p481'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
-
-set :scm, :git
-set :repository, "git@github.com:mattgrande/hamontfood.git"
-set :branch, "master"
-set :use_sudo, true
-
-
-server "hamontfood.cloudapp.net", :web, :app, :db, primary: true
-
-
-set :deploy_to, "/home/#{user}/apps/#{application}"
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-ssh_options[:port] = 22
-
+# dirs we want symlinked to the shared folder
+# during deployment
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 namespace :deploy do
-  desc "Fix permissions"
-  task :fix_permissions, :roles => [ :app, :db, :web ] do
-    run "chmod +x #{release_path}/config/unicorn_init.sh"
-  end
 
-
-  %w[start stop restart].each do |command|
-    desc "#{command} unicorn server"
-    task command, roles: :app, except: {no_release: true} do
-      run "service unicorn_#{application} #{command}"
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
+      #
+      # The capistrano-unicorn-nginx gem handles all this
     end
   end
 
+  after :publishing, :restart
 
-  task :setup_config, roles: :app do
-    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
-    sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
-    sudo "mkdir -p #{shared_path}/config"
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
-  after "deploy:setup", "deploy:setup_config"
 
-
-  task :symlink_config, roles: :app do
-    # Add database config here
-  end
-  after "deploy:finalize_update", "deploy:fix_permissions"
-  after "deploy:finalize_update", "deploy:symlink_config"
 end

@@ -43,7 +43,14 @@ gem 'will_paginate', '~> 3.0'
 gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 2.15'
+group :development do
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1.1'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-unicorn-nginx', '~> 2.0'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

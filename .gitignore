@@ -18,3 +18,5 @@
 # /config/database.yml
 
 todo.md
+myCert.*
+myPrivateKey.*
