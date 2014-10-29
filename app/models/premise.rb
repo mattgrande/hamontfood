@@ -1,6 +1,7 @@
 class Premise < ActiveRecord::Base
 	belongs_to :location
 	has_many :inspections, -> { order(date: :desc) }
+	has_one  :most_recent, :class_name => 'Inspection', :limit => 1, :order => 'date DESC' #, -> { order(date: :desc) }, :limit => 1
 
 	self.primary_key = :id
 	self.per_page = 50

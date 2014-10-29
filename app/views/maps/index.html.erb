@@ -1,0 +1,12 @@
+<ul>
+    <% @points.each do |point| -%>
+        <li>
+            <%= point.lat -%>, <%= point.lng -%>
+            <ul>
+                <% point.premises.each do |premise| %>
+                    <li><%= premise.name -%>: <%= premise.most_recent.result -%></li>
+                <% end %>
+            </ul>
+        </li>
+    <% end %>
+</ul>
